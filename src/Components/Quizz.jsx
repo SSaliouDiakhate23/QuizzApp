@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import QUESTIONS from "../assets/Questions";
 import quizzCompletedImg from "../assets/quiz-complete.png";
+import QuestionTimer from "./QuestionTimer";
 
 function Quizz() {
   const [userAnswers, setUserAnswers] = useState([]);
@@ -33,7 +34,11 @@ function Quizz() {
   return (
     <>
       <div id="quiz">
-        <div className="question" style={{ textAlign: "center" }}>
+        <div id="question" style={{ textAlign: "center" }}>
+          <QuestionTimer
+            time={10000}
+            onTimeOut={() => handleAnswerClick(null)}
+          />
           <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
           <ul id="answers">
             {suffleArray.map((answer, index) => {
