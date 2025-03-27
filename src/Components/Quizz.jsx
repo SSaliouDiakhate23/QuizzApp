@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import QUESTIONS from "../assets/Questions";
 import quizzCompletedImg from "../assets/quiz-complete.png";
 import QuestionTimer from "./QuestionTimer";
@@ -11,11 +11,15 @@ function Quizz() {
 
   const quizzIsCompleted = activeQuestionIndex === QUESTIONS.length;
 
-  const handleAnswerClick = (answer) => {
+  const handleAnswerClick = useCallback((answer) => {
     setUserAnswers((prev) => {
       return [...prev, answer];
     });
-  };
+  }, []);
+
+  const handleSkipAnswer = useCallback(() => {
+    handleAnswerClick(null);
+  }, [handleAnswerClick]);
 
   if (quizzIsCompleted) {
     return (
